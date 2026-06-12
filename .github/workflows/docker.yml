@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: g25ait2123/mlops-group-assignment-2
 
 jobs:
   build-and-push:
