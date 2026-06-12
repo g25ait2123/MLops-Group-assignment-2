@@ -1,0 +1,22 @@
+name: Inference
+
+on:
+  workflow_dispatch:
+    inputs:
+      input_text:
+        description: "Text to classify"
+        required: true
+        type: string
+
+jobs:
+  inference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install -r requirements-inference.txt
+      - run: python src/inference.py "${{ github.event.inputs.input_text }}"
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
