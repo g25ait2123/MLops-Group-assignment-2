@@ -17,6 +17,18 @@ jobs:
         with:
           python-version: "3.10"
       - run: pip install -r requirements-inference.txt
-      - run: python src/inference.py "${{ github.event.inputs.input_text }}"
+      - name: Run Inference
+        id: predict
+        run: |
+          RESULT=$(python src/inference.py "${{ github.event.inputs.input_text }}")
+          echo "$RESULT"
+          echo "prediction=$RESULT" >> $GITHUB_OUTPUT
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      - name: Display Result
+        run: |
+          echo "## 🎯 Inference Result" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Input:** ${{ github.event.inputs.input_text }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**${{ steps.predict.outputs.prediction }}**" >> $GITHUB_STEP_SUMMARY
