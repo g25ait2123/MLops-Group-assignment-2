@@ -47,7 +47,7 @@ def predict(text, model_name=None):
 
     predicted_id = torch.argmax(outputs.logits, dim=-1).item()
     id2label = model.config.id2label
-    return id2label[str(predicted_id)]
+    return id2label.get(str(predicted_id), id2label.get(predicted_id, f"Unknown ({predicted_id})"))
 
 
 if __name__ == "__main__":
