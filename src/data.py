@@ -106,7 +106,7 @@ def encode_labels(df):
         json.dump(id2label, f, indent=2)
 
     print(f"\nEncoded {len(sorted_labels)} labels")
-    print(f"Saved id2label.json")
+    print("Saved id2label.json")
     return df, label2id, id2label
 
 
