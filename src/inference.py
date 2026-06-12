@@ -40,6 +40,7 @@ def predict(text, model_name=None):
         truncation=True,
         max_length=512,
     )
+    inputs.pop("token_type_ids", None)
 
     with torch.no_grad():
         outputs = model(**inputs)
